@@ -6,7 +6,9 @@ const App: React.FC = () => {
     return (
         <div className="App">
             <HelloWorld name="Merlin" age={18} >
-                ha ha ha
+                <strong>I'm a kid</strong>
+                <br/>
+                <span>I'm a kid</span>
             </HelloWorld>
         </div>
     );
