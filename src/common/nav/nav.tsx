@@ -6,10 +6,10 @@ export default function(){
     return <nav>
         <ul>
             <li>
-                <NavLink to="/btn">首页</NavLink>
+                <NavLink to="/btn">Home</NavLink>
             </li>
             <li>
-                <NavLink to="/msg">关于</NavLink>
+                <NavLink to="/msg">About</NavLink>
             </li>
         </ul>
     </nav>;

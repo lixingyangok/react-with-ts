@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 // BrowserRouter, Router, HashRouter, Match, Route, Link, hashHistory, NavLink, 
 // 
 import './App.css';
-import HelloWorld from './pages/hello-world/hello-world';
+import Home from './pages/home/home';
 import Msg from './pages/msg/msg';
 import Nav from './common/nav/nav';
 
@@ -17,7 +17,7 @@ const App: React.FC = () => {
                 <Switch>
                     {/* 注意：加了exact就不能匹配子路由 */}
                     <Redirect exact from="/" to="/btn" ></Redirect>
-                    <Route path="/btn" component={ HelloWorld } ></Route>
+                    <Route path="/btn" component={ Home } ></Route>
                     <Route path="/msg" component={ Msg } ></Route>
                 </Switch>
             </div>
