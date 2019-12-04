@@ -4,8 +4,10 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 // 
 import './App.css';
 import Home from './pages/home/home';
-import Msg from './pages/msg/msg';
+// import Msg from './pages/msg/msg';
 import Nav from './common/nav/nav';
+import About from './pages/about/about';
+
 
 
 const App: React.FC = () => {
@@ -18,7 +20,7 @@ const App: React.FC = () => {
                     {/* 注意：加了exact就不能匹配子路由 */}
                     <Redirect exact from="/" to="/btn" ></Redirect>
                     <Route path="/btn" component={ Home } ></Route>
-                    <Route path="/msg" component={ Msg } ></Route>
+                    <Route path="/msg" component={ About } ></Route>
                 </Switch>
             </div>
         </BrowserRouter>
