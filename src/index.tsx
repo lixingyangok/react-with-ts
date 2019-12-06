@@ -6,26 +6,40 @@ import * as serviceWorker from './serviceWorker';
 // 
 import './index.css';
 
-interface Istate{
+interface StoreState {
     number: number,
 }
-// interface Ifns {
-//     add: Function,
+
+interface fns {
+    add: Function,
+    minus?: Function,
+}
+
+interface Ifns {
+    type: 'add' | 'minus',
+    payload: any,
+}
+// interface Ifns02 {
+//     type: typs,
+//     payload: any,
 // }
+
+// type myAction = 
 
 // action reducer state( state )
 function fnForStore(
-    state: Istate = { number: 1 },
-    action: { type:string, payload: any },
-):object{
-    // let fns:Ifns = {
-    //     add():object{
-    //         return state;
-    //     },
-    // }
-    // if( fns[action.type] ){}
-    // state = state || { number:1 }
-    if( action.type == 'add' ){
+    state: StoreState = { number: 1 },
+    action: Ifns, //{ type:string, payload: any },
+):StoreState {
+    let fns:fns = {
+        add: ()=>({
+            ...state,
+            number: state.number + action.payload,
+        }),
+    };
+    // if( action.type in fns ) console.log('有');
+    if( fns[action.type]  ) fns[action.type]();
+    if( action.type === 'add' ){
         return {
             ...state,
             number: state.number+action.payload,
@@ -36,18 +50,20 @@ function fnForStore(
 
 // ▼创建 store
 let store = createStore( fnForStore );
-console.log( store );
+console.log( 'store：', store );
 console.log( Object.keys( store ) );
-console.log( store.getState() );
+
 
 // ▼修改 reducer(state?)，要用 store.dispatch 派发一个 action
 // action需要2个参数，type 和 payload
 // type: 这个动作的名称
 // payload: 动作附带的参数
+console.log( 'store修改之前：', store.getState() );
 store.dispatch({
     type: 'add', 
-    payload: 1,
+    payload: 2,
 });
+console.log( 'store修改后：', store.getState() );
 
 
 
