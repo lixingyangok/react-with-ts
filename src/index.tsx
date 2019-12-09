@@ -1,3 +1,4 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
@@ -5,52 +6,56 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 // 
 import './index.css';
+declare global {
+    function  __REDUX_DEVTOOLS_EXTENSION__():Object
+}
 
+// ▼规定store保存了哪些值
 interface StoreState {
     number: number,
+    // info: {
+    //     a: number,
+    //     b: number,
+    // }
 }
-
-interface fns {
+// ▼方法库
+interface Fns {
     add: Function,
-    minus?: Function,
+    minus: Function,
 }
-
-interface Ifns {
+// ▼
+interface Action {
     type: 'add' | 'minus',
     payload: any,
 }
-// interface Ifns02 {
-//     type: typs,
-//     payload: any,
-// }
 
-// type myAction = 
-
-// action reducer state( state )
+// ▼ The funciton use to make a store
 function fnForStore(
-    state: StoreState = { number: 1 },
-    action: Ifns, //{ type:string, payload: any },
+    state: StoreState = { number: 1,  },
+    action: Action, //{ type:string, payload: any },
 ):StoreState {
-    let fns:fns = {
+    let fns:Fns = {
         add: ()=>({
             ...state,
             number: state.number + action.payload,
         }),
-    };
-    // if( action.type in fns ) console.log('有');
-    if( fns[action.type]  ) fns[action.type]();
-    if( action.type === 'add' ){
-        return {
-            ...state,
-            number: state.number+action.payload,
+        minus: ()=>{
+
         }
+    };
+    if( fns[action.type]  ) {
+        return fns[action.type]();
+    }else{
+        return state; 
     }
-    return state; 
 }
 
-// ▼创建 store
-let store = createStore( fnForStore );
-console.log( 'store：', store );
+// ▼ Make a store buy this way
+let store = createStore(
+    fnForStore,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
+console.log( '创建的store：', store );
 console.log( Object.keys( store ) );
 
 
