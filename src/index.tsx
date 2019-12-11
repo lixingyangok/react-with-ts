@@ -1,28 +1,27 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import thunk from 'redux-thunk';
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux'; //combineReducers用于合并多个reducer
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 // 
 import './index.css';
 declare global {
-    function  __REDUX_DEVTOOLS_EXTENSION__():Object
+    function __REDUX_DEVTOOLS_EXTENSION__():any
 }
+if( !thunk ) console.log( thunk, compose, applyMiddleware );
 
 // ▼规定store保存了哪些值
 interface StoreState {
     number: number,
-    // info: {
-    //     a: number,
-    //     b: number,
-    // }
 }
+
 // ▼方法库
 interface Fns {
     add: Function,
     minus: Function,
 }
+
 // ▼
 interface Action {
     type: 'add' | 'minus',
@@ -50,10 +49,18 @@ function fnForStore(
     }
 }
 
+const rootReducer = combineReducers({
+    fnForStore,
+});
+
 // ▼ Make a store buy this way
 let store = createStore(
-    fnForStore,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    rootReducer,
+    applyMiddleware( thunk )
+    // compose(
+    //     applyMiddleware( thunk ), //需要使用的中间件数组
+    //     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    // ),
 );
 console.log( '创建的store：', store );
 console.log( Object.keys( store ) );
@@ -68,7 +75,15 @@ store.dispatch({
     type: 'add', 
     payload: 2,
 });
+
 console.log( 'store修改后：', store.getState() );
+// store.dispatch( function( dispatch:Function ) {
+//     dispatch({
+//         type: 'add',
+//         payload: 2,
+//     });
+// });
+
 
 
 
