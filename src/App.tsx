@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { Suspense }  from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 // BrowserRouter, Router, HashRouter, Match, Route, Link, hashHistory, NavLink, 
 // 
 import './App.css';
-import Home from './pages/home/home';
-// import Msg from './pages/msg/msg';
 import Nav from './common/nav/nav';
-import About from './pages/about/about';
+// src/common/nav/nav.tsx
 
-
+let aa = React.lazy(() => import( './pages/about/about' ));
 
 const App: React.FC = () => {
     return (
@@ -16,12 +14,15 @@ const App: React.FC = () => {
         <BrowserRouter >
             <div className="App">
                 <Nav></Nav>
-                <Switch>
-                    {/* 注意：加了exact就不能匹配子路由 */}
-                    <Redirect exact from="/" to="/btn" ></Redirect>
-                    <Route path="/btn" component={ Home } ></Route>
-                    <Route path="/msg" component={ About } ></Route>
-                </Switch>
+                {/* ▼异步组件父级必须有 Suspense */}
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Switch>
+                        {/* 注意：加了exact就不能匹配子路由 */}
+                        <Redirect exact from="/" to="/home" ></Redirect>
+                        <Route path="/home" component={ React.lazy(() => import('./pages/home/home')) } ></Route>
+                        <Route path="/about" component={ aa } ></Route>
+                    </Switch>
+                </Suspense>
             </div>
         </BrowserRouter>
     );
