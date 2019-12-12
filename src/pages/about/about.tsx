@@ -13,7 +13,7 @@ export default class About extends React.Component< IProps > {
     }
     render(){
         return <div>
-            asdfasdf
+            This is about page.
         </div>
     }
 }

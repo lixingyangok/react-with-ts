@@ -6,21 +6,28 @@ export const navData = [
     {
         to: '/home',
         name: 'Home',
-        // component: React.lazy(
-        //     ()=>import('src/pages/home/home.tsx');
-        // ),
+        component: React.lazy(()=>import('pages/home/home')),
+    }, {
+        to: '/demo',
+        name: 'Demo',
+        component: React.lazy(()=>import('pages/demo/demo')),
+    }, {
+        to: '/about',
+        name: 'About',
+        component: React.lazy(()=>import('pages/about/about')),
     },
 ]
 
 export default function(){
     return <nav>
         <ul>
-            <li>
-                <NavLink to="/home">Home</NavLink>
-            </li>
-            <li>
-                <NavLink to="/about">About</NavLink>
-            </li>
+            {
+                navData.map((cur, idx)=>{
+                    return <li key={idx}>
+                        <NavLink to={cur.to}>{cur.name}</NavLink>
+                    </li>
+                })
+            }
         </ul>
     </nav>;
 }

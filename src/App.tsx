@@ -3,10 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 // BrowserRouter, Router, HashRouter, Match, Route, Link, hashHistory, NavLink, 
 // 
 import './App.css';
-import Nav from './common/nav/nav';
-// src/common/nav/nav.tsx
-
-let aa = React.lazy(() => import( './pages/about/about' ));
+import Nav, { navData } from 'common/nav/nav';
 
 const App: React.FC = () => {
     return (
@@ -17,10 +14,17 @@ const App: React.FC = () => {
                 {/* ▼异步组件父级必须有 Suspense */}
                 <Suspense fallback={<div>Loading...</div>}>
                     <Switch>
-                        {/* 注意：加了exact就不能匹配子路由 */}
+                        {/* 注意：加了exact就不再向下匹配子级路由 */}
                         <Redirect exact from="/" to="/home" ></Redirect>
-                        <Route path="/home" component={ React.lazy(() => import('./pages/home/home')) } ></Route>
-                        <Route path="/about" component={ aa } ></Route>
+                        {navData.map((cur, idx)=>{
+                            return (
+                                <Route 
+                                    path={cur.to}
+                                    component={ cur.component } 
+                                    key={idx}
+                                ></Route>
+                            );
+                        })}
                     </Switch>
                 </Suspense>
             </div>
