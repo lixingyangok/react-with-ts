@@ -1,34 +1,39 @@
-import React from 'react';
+import React, {Suspense} from 'react';
+import { NavLink, Switch, Route, Redirect } from 'react-router-dom';
+
 import './style/demo.scss';
 
-export const navData = [
-    {
-        to: '/home',
-        name: 'Home',
-        component: React.lazy(()=>import('pages/home/home')),
-    }, {
-        to: '/demo',
-        name: 'Demo',
-        component: React.lazy(()=>import('pages/demo/demo')),
-    }, {
-        to: '/about',
-        name: 'About',
-        component: React.lazy(()=>import('pages/about/about')),
-    },
-]
+export const navData = [{
+    to: '/demo/toDoList',
+    name: 'To do list',
+    component: React.lazy(()=>import('pages/demo/components/todolist/todolist')),
+}];
 
 export default class Demo extends React.Component{
     render(){
         return <div className="center-box" data-page="demo" >
             <ul>
-                {
-                    navData.map((cur, idx )=>{
-                        return <li key={idx}>
-                            {cur.to}
-                        </li>
-                    })
-                }
+                {navData.map((cur, idx )=>{
+                    return <li key={idx}>
+                        <NavLink to={cur.to} >{cur.name}</NavLink>
+                    </li>
+                })}
             </ul>
+            {/*    */}
+            <Suspense fallback={<div>Loading...</div>}>
+                <Switch>
+                    <Redirect exact from="/demo" to="/demo/toDoList" />
+                    {navData.map((cur, idx)=>{
+                        return (
+                            <Route
+                                path={cur.to}
+                                component={cur.component}
+                                key={idx}
+                            />
+                        );
+                    })}
+                </Switch>
+            </Suspense>
         </div>
     }
 }

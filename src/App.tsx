@@ -10,19 +10,15 @@ const App: React.FC = () => {
         // ▼应用根组件必须要有 <BrowserRouter>
         <BrowserRouter >
             <div className="App">
-                <Nav></Nav>
+                <Nav/>
                 {/* ▼异步组件父级必须有 Suspense */}
                 <Suspense fallback={<div>Loading...</div>}>
                     <Switch>
                         {/* 注意：加了exact就不再向下匹配子级路由 */}
-                        <Redirect exact from="/" to="/home" ></Redirect>
+                        <Redirect exact from="/" to="/home" />
                         {navData.map((cur, idx)=>{
                             return (
-                                <Route 
-                                    path={cur.to}
-                                    component={ cur.component } 
-                                    key={idx}
-                                ></Route>
+                                <Route path={cur.to} component={cur.component} key={idx}/>
                             );
                         })}
                     </Switch>
@@ -30,7 +26,7 @@ const App: React.FC = () => {
             </div>
         </BrowserRouter>
     );
-}
+};
 /*
   ● 有<Switch>标签，则下列其中的<Route>在路径相同的情况下，只匹配第一个，这个可以避免重复匹配；
   ● 无<Switch>标签，则其中的<Route>在路径相同的情况下全都会匹配。更严重的是，还会匹配上级路径的，如下面例子：
