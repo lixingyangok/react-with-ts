@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/react-with-ts.iml" filepath="$PROJECT_DIR$/.idea/react-with-ts.iml" />
+      <module fileurl="file://G:/work/未来科技前端/training/.idea/training.iml" filepath="G:/work/未来科技前端/training/.idea/training.iml" />
     </modules>
   </component>
 </project>

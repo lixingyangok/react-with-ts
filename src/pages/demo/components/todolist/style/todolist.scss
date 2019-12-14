@@ -1,0 +1,32 @@
+.todolist{
+  width: 600px;
+  margin: 0 auto;
+  .input-box{
+    border: solid 1px #eee;
+    display: flex;
+    &>*{
+      box-sizing: border-box;
+      height: 60px;
+    }
+    input{
+      flex: auto;
+      padding: 15px;
+    }
+    button{
+      width: 60px;
+      cursor: pointer;
+    }
+  }
+  //
+  .list-box{
+    padding: 20px 0;
+    border: solid 1px #eee;
+    text-align: left;
+    li{
+      list-style-type: decimal-leading-zero;
+      margin-left: 50px;
+    }
+  }
+
+
+}
