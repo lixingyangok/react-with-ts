@@ -2,15 +2,17 @@ import React from 'react';
 import './style/todolist.scss';
 
 interface IState {
-    name: string
+    typing: string
+    list: string[],
 }
+
 interface IProps {
     name: string,
 }
 
-export default class Todolist extends React.Component<IProps, any>{
-    constructor({props}: { props: any }) {
-        super(props);
+export default class Todolist extends React.Component<IProps, IState>{
+    constructor( props: IProps ) {
+        super( props );
         this.state = {
             typing: '',
             list: [ '学习', '运动' ],
@@ -21,11 +23,10 @@ export default class Todolist extends React.Component<IProps, any>{
         return <div className="todolist" >
             <div className="input-box" >
                 <input className="input" placeholder="请输入"
-                    name="typing"
-                    value={this.state.typing}
-                    onChange={()=>this.formChanged(1)}
+                    name="typing" value={this.state.typing}
+                    onChange={ ev=>this.formChanged( ev ) }
                 />
-                <button>提交</button>
+                <button onClick={ ()=>this.add() } >提交</button>
             </div>
             {/**/}
             <ol className={'list-box'} >
@@ -33,16 +34,32 @@ export default class Todolist extends React.Component<IProps, any>{
                     return <li key={idx}>
                         <span>{cur}</span>
                         &nbsp;
-                        <button>删除</button>
+                        <button onClick={()=>this.del( idx )} >删除</button>
                     </li>
                 })}
             </ol>
         </div>
     }
-    formChanged( ev:any ){
-        console.log( ev );
+    formChanged( ev:{target: { name: string, value: string }} ){
+        let target = ev.target;
+        this.setState({
+            ...this.state,
+            [ target.name ]: target.value,
+        });
     }
     add(){
-
+        let { state } = this;
+        this.setState({
+            ...state,
+            typing: '',
+            list: state.list.concat(state.typing),
+        });
+    }
+    del( idx:number ){
+        let { state } = this;
+        this.setState({
+            ...state,
+            list: state.list.filter((cur:string, curIdx:number)=> curIdx !== idx ),
+        })
     }
 }
