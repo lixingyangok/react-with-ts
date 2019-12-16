@@ -7,6 +7,10 @@ export const navData = [{
     to: '/demo/toDoList',
     name: 'To do list',
     component: React.lazy(()=>import('pages/demo/components/todolist/todolist')),
+},{
+    to: '/demo/chessGame',
+    name: 'chess game',
+    component: React.lazy(()=>import('pages/demo/components/chess/chess')),
 },
     // {
     //     to: '/demo/test',

@@ -26,7 +26,9 @@ export default class Todolist extends React.Component<IProps, IState>{
                     name="typing" value={this.state.typing}
                     onChange={ ev=>this.formChanged( ev ) }
                 />
-                <button onClick={ ()=>this.add() } >提交</button>
+                <button onClick={ ()=>this.add() }>
+                    提交{this.props.name || 0}
+                </button>
             </div>
             {/**/}
             <ol className={'list-box'} >
