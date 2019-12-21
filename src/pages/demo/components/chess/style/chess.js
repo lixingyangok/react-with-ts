@@ -29,5 +29,5 @@ export const Box = styled.ul`
 export const H3 = styled.h3`
 	line-height: 1;
 	margin: 10px 0;
-	color: ${ pp => pp.stress ? 'red' : '' };
+	color: ${ pp => pp.color || '' };
 `
