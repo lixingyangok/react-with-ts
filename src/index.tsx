@@ -85,7 +85,16 @@ console.log( 'store修改后：', store.getState() );
 // });
 
 
-
+Object.defineProperties( Object.prototype, {
+    '$dc': {
+        value: function(){
+            return JSON.parse(
+                JSON.stringify( this ),
+            );
+        },
+        writable: false,
+    },
+})
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

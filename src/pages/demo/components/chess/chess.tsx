@@ -4,28 +4,33 @@ import { Box, H3 } from './style/chess';
 export default class Chess extends React.Component<any, any>{
     constructor(props:any) {
         super(props);
-        const initArr = [['x', 'x', ''], ['', '', ''], ['', '', '']];
+        const initArr = [['', '', ''], ['', '', ''], ['', '', '']];
         this.state = {
             player: 'X',
             step: 0,
             isOver: false,
             winner: '',
-            arr: JSON.parse(JSON.stringify(initArr)),
+            initArr,
             historyArr: [ JSON.parse(JSON.stringify(initArr)) ],
         }
     }
     render(){
         let {
             state: {
-                arr, step, player, isOver, winner, historyArr
+                step, player, isOver, winner, historyArr
             },
         } = this;
         return <section>
             <H3>
-                Current step: {step+1}
+                Current step: { step }
                 &nbsp;&nbsp;&nbsp;
-                <button disabled={step==0} >last step</button>-
-                <button>next step</button>
+                <button disabled={step === 0} onClick={()=>this.changeStep(-1)}>
+                    last step
+                </button>
+                -
+                <button disabled={step === historyArr.length-1} onClick={()=>this.changeStep(1)}>
+                    next step
+                </button>
             </H3>
             <H3>
                 Current player: {player}
@@ -50,35 +55,45 @@ export default class Chess extends React.Component<any, any>{
         </section>
     }
 
+    changeStep( type:1|-1 ){
+        this.setState({
+            ...this.state,
+            step: this.state.step + type,
+        });
+    }
+
     putDown( xx:number, yy:number ){
         const { state } = this;
-        let arr = state.arr;
+        let arr = state.historyArr.slice(-1)[0].$dc();
         const isOver = this.getIsCover() || this.getResult( arr );
         if( isOver ) return alert('The game has already over!');
-        // ▲ To Judge if the game is over, if so return.
         arr[xx][yy] = state.player;
-        this.setState({
+        const result = {
             ...state,
             step: state.step + 1,
             player: ['X', 'O'][ (state.step + 1)%2 ],
             arr,
             isOver: this.getIsCover() || this.getResult( arr ),
             winner: this.getResult( arr ),
-            historyArr: state.historyArr.concat( [...arr] ),
-        });
+            historyArr: state.historyArr.concat( [arr.$dc()] ),
+        };
+        console.log( result );
+        this.setState( result );
     }
     restart(){
         this.setState({
             ...this.state,
             step: 0,
             player: 'X',
-            arr: this.state.arr.map(()=>['', '', '']),
+            historyArr: [ this.state.initArr.$dc() ],
             isOver: false,
             winner: '',
         });
     }
     getResult( arr:Array<any> ){
+        arr = JSON.parse(JSON.stringify(arr));
         let winner = '';
+        let winnerArr = arr[0];
         for( let cur of arr ){
             winner = cur.reduce((resultStr:string, curStr:string) => {
                 if( resultStr && resultStr === curStr ) return resultStr;
@@ -86,12 +101,20 @@ export default class Chess extends React.Component<any, any>{
             if( winner ) break;
         }
         if( !winner ){
-
+            arr.forEach(( cur )=>{
+                cur.forEach((thisOne:string[], idx_:number)=>{
+                    winnerArr[idx_] = (()=>{
+                        if( thisOne && winnerArr[idx_] == thisOne ) return thisOne;
+                        return '';
+                    })();
+                });
+            });
         }
-        return winner;
+        return winner || winnerArr.find(Boolean) || '';
     }
     getIsCover():Boolean {
-        const { state: { arr } } = this;
+        const { state } = this;
+        let arr = state.historyArr[ state.step ];
         return arr.reduce((result:any[], cur:string[])=>{
             result.push( cur.every(Boolean) );
             return result;
