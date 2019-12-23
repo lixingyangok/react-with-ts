@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, H3 } from './style/chess';
 
+// Added a "history" feature.
 export default class Chess extends React.Component<any, any>{
     constructor(props:any) {
         super(props);
