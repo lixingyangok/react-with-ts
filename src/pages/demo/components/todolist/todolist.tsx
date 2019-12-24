@@ -15,19 +15,19 @@ export default class Todolist extends React.Component<IProps, IState>{
         super( props );
         this.state = {
             typing: '',
-            list: [ '学习', '运动' ],
+            list: [ 'Learing', 'Exercise' ],
         };
     }
     render(){
         let { state: { list } } = this;
         return <div className="todolist" >
             <div className="input-box" >
-                <input className="input" placeholder="请输入"
+                <input className="input" placeholder="Please type in"
                     name="typing" value={this.state.typing}
                     onChange={ ev=>this.formChanged( ev ) }
                 />
                 <button onClick={ ()=>this.add() }>
-                    提交{this.props.name || 0}
+                    Submit{this.props.name || 0}
                 </button>
             </div>
             {/**/}
@@ -36,7 +36,7 @@ export default class Todolist extends React.Component<IProps, IState>{
                     return <li key={idx}>
                         <span>{cur}</span>
                         &nbsp;
-                        <button onClick={()=>this.del( idx )} >删除</button>
+                        <button onClick={()=>this.del( idx )} >Delete</button>
                     </li>
                 })}
             </ol>
