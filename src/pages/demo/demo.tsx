@@ -8,8 +8,12 @@ export const navData = [{
     component: React.lazy(()=>import('pages/demo/components/todolist/todolist')),
 },{
     to: '/demo/chessGame',
-    name: 'chess game',
+    name: 'Chess game',
     component: React.lazy(()=>import('pages/demo/components/chess/chess')),
+},{
+    to: '/demo/clock',
+    name: 'Clock',
+    component: React.lazy(()=>import('pages/demo/components/clock/clock')),
 },];
 
 export default class Demo extends React.Component{
@@ -26,7 +30,7 @@ export default class Demo extends React.Component{
             <Suspense fallback={<div>Loading...</div>}>
                 <Switch>
                     <Redirect exact from="/demo" to="/demo/toDoList" />
-                    {navData.map((cur, idx)=>{
+                    {navData.map((cur:{to:string, name:string, component:any}, idx:number)=>{
                         return (
                             <Route
                                 path={cur.to}
