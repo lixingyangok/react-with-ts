@@ -82,11 +82,12 @@ export default class Chess extends React.Component<any, any>{
         this.setState( result );
     }
     restart(){
+        let initArr = this.state.initArr.$dc();
         this.setState({
             ...this.state,
             step: 0,
             player: 'X',
-            historyArr: [ this.state.initArr.$dc() ],
+            historyArr: [ initArr ],
             isOver: false,
             winner: '',
         });
@@ -94,24 +95,34 @@ export default class Chess extends React.Component<any, any>{
     getResult( arr:Array<any> ){
         arr = JSON.parse(JSON.stringify(arr));
         let winner = '';
-        let winnerArr = arr[0];
+        let winnerArr = arr[0].$dc();
         for( let cur of arr ){
             winner = cur.reduce((resultStr:string, curStr:string) => {
                 if( resultStr && resultStr === curStr ) return resultStr;
+                return '';
             });
             if( winner ) break;
+        }
+        if( !winner ){
+            if( arr[0][0] && arr[0][0] === arr[1][1] && arr[0][0] === arr[2][2] ){
+                winner = arr[0][0];
+            }else if( arr[0][2] && arr[0][2] === arr[1][1] && arr[0][2] === arr[2][0] ){
+                winner = arr[0][2];
+            }
         }
         if( !winner ){
             arr.forEach(( cur )=>{
                 cur.forEach((thisOne:string[], idx_:number)=>{
                     winnerArr[idx_] = (()=>{
-                        if( thisOne && winnerArr[idx_] == thisOne ) return thisOne;
+                        if( thisOne && winnerArr[idx_] === thisOne ) return thisOne;
                         return '';
                     })();
                 });
             });
         }
-        return winner || winnerArr.find(Boolean) || '';
+        winner = winner || winnerArr.find(Boolean) || '';
+        console.log( '判断胜出方：', winner );
+        return winner;
     }
     getIsCover():Boolean {
         const { state } = this;

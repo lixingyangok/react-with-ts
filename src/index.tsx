@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'; //combineReducers用于合并多个reducer
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-// 
+//
 import './index.css';
 declare global {
     function __REDUX_DEVTOOLS_EXTENSION__():any
@@ -45,7 +45,7 @@ function fnForStore(
     if( fns[action.type]  ) {
         return fns[action.type]();
     }else{
-        return state; 
+        return state;
     }
 }
 
@@ -72,7 +72,7 @@ console.log( Object.keys( store ) );
 // payload: 动作附带的参数
 console.log( 'store修改之前：', store.getState() );
 store.dispatch({
-    type: 'add', 
+    type: 'add',
     payload: 2,
 });
 
@@ -84,7 +84,7 @@ console.log( 'store修改后：', store.getState() );
 //     });
 // });
 
-
+// eslint-disable-next-line
 Object.defineProperties( Object.prototype, {
     '$dc': {
         value: function(){
@@ -92,7 +92,7 @@ Object.defineProperties( Object.prototype, {
                 JSON.stringify( this ),
             );
         },
-        writable: false,
+        writable: true,
     },
 })
 
