@@ -16,11 +16,7 @@ export default class Chess extends React.Component<any, any>{
         }
     }
     render(){
-        let {
-            state: {
-                step, player, isOver, winner, historyArr
-            },
-        } = this;
+        let { step, player, isOver, winner, historyArr } = this.state;
         return <section>
             <H3>
                 Current step: { step }
@@ -67,7 +63,11 @@ export default class Chess extends React.Component<any, any>{
         const { state } = this;
         let arr = state.historyArr.slice(-1)[0].$dc();
         const isOver = this.getIsCover() || this.getResult( arr );
-        if( isOver ) return alert('The game has already over!');
+        if( isOver ) {
+            const isSure = window.confirm('The game is over, would you like to restart?')
+            isSure && this.restart();
+            return;
+        };
         arr[xx][yy] = state.player;
         const result = {
             ...state,
@@ -78,7 +78,6 @@ export default class Chess extends React.Component<any, any>{
             winner: this.getResult( arr ),
             historyArr: state.historyArr.concat( [arr.$dc()] ),
         };
-        console.log( result );
         this.setState( result );
     }
     restart(){
@@ -121,7 +120,6 @@ export default class Chess extends React.Component<any, any>{
             });
         }
         winner = winner || winnerArr.find(Boolean) || '';
-        console.log( '判断胜出方：', winner );
         return winner;
     }
     getIsCover():Boolean {

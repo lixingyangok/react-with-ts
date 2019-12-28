@@ -27,7 +27,7 @@ export default class Todolist extends React.Component<IProps, IState>{
                     onChange={ ev=>this.formChanged( ev ) }
                 />
                 <button onClick={ ()=>this.add() }>
-                    Submit{this.props.name || 0}
+                    Submit
                 </button>
             </div>
             {/**/}
@@ -40,6 +40,11 @@ export default class Todolist extends React.Component<IProps, IState>{
                     </li>
                 })}
             </ol>
+            {
+                list.length
+                ? ''
+                : <h1>There is no item</h1>
+            }
         </div>
     }
     formChanged( ev:{target: { name: string, value: string }} ){
