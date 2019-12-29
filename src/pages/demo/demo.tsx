@@ -14,6 +14,10 @@ export const navData = [{
     to: '/demo/clock',
     name: 'Clock',
     component: React.lazy(()=>import('pages/demo/components/clock/clock')),
+},{
+    to: '/demo/slider',
+    name: 'Slider',
+    component: React.lazy(()=>import('pages/demo/components/slider/slider')),
 },];
 
 export default class Demo extends React.Component{

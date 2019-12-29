@@ -4,6 +4,7 @@ import './style/todolist.scss';
 interface IState {
     typing: string
     list: string[],
+    msg: string,
 }
 
 interface IProps {
@@ -11,15 +12,19 @@ interface IProps {
 }
 
 export default class Todolist extends React.Component<IProps, IState>{
+    // ▼This is one way to declare state
+    // public readonly state:Readonly<IState> = {}
+    public state:IState; 
     constructor( props: IProps ) {
         super( props );
         this.state = {
             typing: '',
             list: [ 'Learing', 'Exercise' ],
+            msg: 'There is no item',
         };
     }
     render(){
-        let { state: { list } } = this;
+        let { state: { list, msg } } = this;
         return <div className="todolist" >
             <div className="input-box" >
                 <input className="input" placeholder="Please type in"
@@ -40,11 +45,7 @@ export default class Todolist extends React.Component<IProps, IState>{
                     </li>
                 })}
             </ol>
-            {
-                list.length
-                ? ''
-                : <h1>There is no item</h1>
-            }
+            { list.length ? '' : <h1>{msg}</h1> }
         </div>
     }
     formChanged( ev:{target: { name: string, value: string }} ){

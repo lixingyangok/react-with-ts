@@ -1,8 +1,7 @@
 import React from 'react';
 import style from './style/clock-style';
-const {
-    H1,
-} = style;
+
+const { H1 } = style;
 
 interface IProps {
 
@@ -18,10 +17,6 @@ export default class Clock extends React.Component<IProps, any>{
             date: new Date(),
         };
     }
-    componentWillUnmount() {
-        console.log('04-component-Will-Unmount');
-        clearInterval(this.timerID);
-    }
     componentDidMount() {
         console.log('03-component-Did-Mount');
         this.timerID = setInterval(()=>{
@@ -30,6 +25,10 @@ export default class Clock extends React.Component<IProps, any>{
                 date: new Date(),
             });
         }, 1*1000);
+    }
+    componentWillUnmount() {
+        console.log('04-component-Will-Unmount');
+        clearInterval(this.timerID);
     }
     render(){
         console.log('02-Render');
