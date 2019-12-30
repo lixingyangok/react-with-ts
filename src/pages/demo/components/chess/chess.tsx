@@ -70,7 +70,6 @@ export default class Chess extends React.Component<any, any>{
         };
         arr[xx][yy] = state.player;
         const result = {
-            ...state,
             step: state.step + 1,
             player: ['X', 'O'][ (state.step + 1)%2 ],
             arr,
@@ -83,7 +82,6 @@ export default class Chess extends React.Component<any, any>{
     restart(){
         let initArr = this.state.initArr.$dc();
         this.setState({
-            ...this.state,
             step: 0,
             player: 'X',
             historyArr: [ initArr ],

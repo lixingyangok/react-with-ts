@@ -14,6 +14,7 @@ export default {
             position: relative;
             top: 0;
             left: 0;
+            //transition: 0.3s;
         }
         li{
             flex: none;
