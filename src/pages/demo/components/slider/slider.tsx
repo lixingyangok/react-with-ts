@@ -11,6 +11,9 @@ interface IState {
     iLiWidth: number,
     oUl: object,
     oLi: object,
+    iTimer: number,
+    iCur: number,
+    iPst: number,
 }
 
 export default class Slider extends React.Component<IProps, IState>{
@@ -22,6 +25,9 @@ export default class Slider extends React.Component<IProps, IState>{
             oUl: {},
             oLi: {},
             iLiWidth: 123,
+            iTimer: 0,
+            iCur: 0,
+            iPst: 0,
         };
     }
     render(){
@@ -49,15 +55,28 @@ export default class Slider extends React.Component<IProps, IState>{
         </div>
     }
     LetItGo( direction:1|-1 ){
+        clearInterval( this.state.iTimer );
         const { state } = this;
-        const iLeft = (():number => {
-            let val = state.iLeft += state.iLiWidth * direction;
-            if( val > 0 ) val = 0;
+        const iCur = ( ():number => {
+            let val = state.iCur + direction;
+            if( val < 0 ) val = 0;
             return val;
         })();
-        this.setState({
-            iLeft,
-        });
+        this.setState({ iCur });
+        const iTerminus = iCur * state.iLiWidth;
+        let timer = setInterval(()=>{
+            this.setState({
+                iLeft: state.iLeft + direction * 10,
+            })
+            if( direction == 1 ){
+                if( state.iLeft >= iTerminus ) clearInterval( timer );
+            }else{
+                if( state.iLeft <= iTerminus ) clearInterval( timer );
+            }
+        }, 15);
+        // @ts-ignore
+        this.setState({ iTimer: timer });
+        console.log( timer );
     }
     componentDidMount(){
         const oDiv:any = this.refs.div;
