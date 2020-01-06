@@ -4,11 +4,13 @@ import thunk from 'redux-thunk';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'; //combineReducers用于合并多个reducer
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
 //
 import './index.css';
 declare global {
     function __REDUX_DEVTOOLS_EXTENSION__():any
 }
+
 if( !thunk ) console.log( thunk, compose, applyMiddleware );
 
 // ▼规定store保存了哪些值
@@ -22,15 +24,15 @@ interface Fns {
     minus: Function,
 }
 
-// ▼
+// ▼定义有哪些 actions
 interface Action {
     type: 'add' | 'minus',
     payload: any,
 }
 
-// ▼ The funciton use to make a store
+// ▼ This function use to make a Store
 function fnForStore(
-    state: StoreState = { number: 1,  },
+    state: StoreState = { number: 1 },
     action: Action, //{ type:string, payload: any },
 ):StoreState {
     let fns:Fns = {
