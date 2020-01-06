@@ -10,11 +10,10 @@ interface IProps {
 interface IState {
     iLeft: number,
     iLiWidth: number,
-    oUl: object,
-    oLi: object,
+    oUl: NodeListOf<Element> | object,
+    oLi: NodeListOf<Element> | object,
     iTimer: number,
     iCur: number,
-    iPst: number,
 }
 
 export default class Slider extends React.Component<IProps, IState>{
@@ -28,7 +27,6 @@ export default class Slider extends React.Component<IProps, IState>{
             iLiWidth: 123,
             iTimer: 0,
             iCur: 0,
-            iPst: 0,
         };
     }
     render(){
@@ -58,39 +56,35 @@ export default class Slider extends React.Component<IProps, IState>{
     LetItGo( direction: 1|-1 ){
         clearInterval( this.state.iTimer );
         const { state, state: { iLiWidth, oUl } } = this;
+        const liLength = (oUl as any).children.length;
         const iCur = ( ():number => {
             let val = state.iCur + direction;
             if( val < 0 ) {
-                // @ts-ignore
-                const liLength = oUl.children.length;
                 this.setState({
-                    iLeft: iLiWidth * liLength,
+                    iLeft: iLiWidth * -liLength,
                     iCur: liLength,
                 });
                 val = liLength - 1;
+            }else if( val>=5 ){
+                this.setState({iLeft: 0, iCur: 0});
+                val = 1;
             }
             return val;
         })();
         this.setState({ iCur });
         const iTerminus = -iCur * iLiWidth;
         if ( iTerminus === state.iLeft ) return;
-        console.log( `目标${iCur}` );
-        console.log( `目标px ${iTerminus}` );
+        console.log( `目标${iCur} - 目标px:${iTerminus}` );
         let timer = setInterval(()=>{
             const iLeft = (()=>{
                 let val = this.state.iLeft;
                 return iTerminus > val ? val + 10 : val - 10;
             })();
-            this.setState({
-                iLeft,
-            });
-            const isBeEnd = (
-                (direction === 1 && iLeft <= iTerminus) ||
-                (direction === -1 && iLeft >= iTerminus)
-            );
+            this.setState({ iLeft });
+            const isBeEnd = (direction === 1 && iLeft <= iTerminus) || (direction === -1 && iLeft >= iTerminus);
             if( isBeEnd ){
-                this.setState({ iLeft: iTerminus });
                 clearInterval( timer );
+                this.setState({ iLeft: iTerminus });
             }
         }, 15 );
         // @ts-ignore
@@ -98,9 +92,9 @@ export default class Slider extends React.Component<IProps, IState>{
     }
     componentDidMount(){
         const oDiv:any = this.refs.div;
-        const oUl = oDiv.querySelector('ul');
-        const oLi = oDiv.querySelector('li');
-        const iWidth = oLi.offsetWidth;
+        const oUl:HTMLElement = oDiv.querySelector('ul');
+        const oLi:HTMLElement = oDiv.querySelector('li');
+        const iWidth:number = oLi.offsetWidth;
         this.setState({
             oUl,
             oLi,
