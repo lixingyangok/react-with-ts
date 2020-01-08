@@ -1,8 +1,8 @@
 import React from 'react';
-import { Input, Button, List } from 'antd';
-import styleObj from './style/todolistWithStyle.js';
+import { Input, List } from 'antd';
+import styled from './style/todolistWithStyle.js';
+import store from 'store/index';
 
-const { InputBar } = styleObj;
 const { Search } = Input;
 
 const data = [
@@ -10,26 +10,58 @@ const data = [
     'abc',
 ];
 
-export default function () {
+
+
+export default class ToDoList extends React.Component{
+    constructor( props:any ){
+        super(props);
+        console.log( store.getState() );
+    }
+    render(){
+        return <div>
+            <styled.InputBar>
+                <Search
+                    placeholder="Input action name"
+                    enterButton="Submit"
+                    size="large"
+                    onSearch={value => console.log(value)}
+                />
+                {/* header={<div>Header</div>}
+                footer={<div>Footer</div>} */}
+                <styled.List
+                    bordered
+                    dataSource={data}
+                    renderItem={ (item:string) => (
+                        <List.Item>
+                            {item}
+                        </List.Item>
+                    )}
+                />
+            </styled.InputBar>
+        </div>
+    }
+}
+
+export function  abc() {
     return <div>
-        <InputBar>
+        <styled.InputBar>
             <Search
                 placeholder="Input action name"
                 enterButton="Submit"
                 size="large"
                 onSearch={value => console.log(value)}
             />
-            <List
-                header={<div>Header</div>}
-                footer={<div>Footer</div>}
+            {/* header={<div>Header</div>}
+            footer={<div>Footer</div>} */}
+            <styled.List
                 bordered
                 dataSource={data}
-                renderItem={item => (
+                renderItem={ (item:string) => (
                     <List.Item>
                         {item}
                     </List.Item>
                 )}
             />
-        </InputBar>
+        </styled.InputBar>
     </div>
 }
