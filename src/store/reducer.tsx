@@ -1,26 +1,41 @@
+
 export interface IStore {
     inputing: string,
     list: string[],
+}
+// ▼定义有哪些 actions
+type tp = 'add' | 'remove' | 'change';
+
+interface IAction {
+    type: 'add' | 'remove' | 'change',
+    value: any,
+    payload?: any,
 }
 
 
 let defaultState:IStore = {
     inputing: 'inputing',
-    list: [ '123', 'abc' ],
+    list: [ '123', 'abc', '888' ],
 };
-
-// ▼定义有哪些 actions
-interface Action {
-    type: 'add' | 'minus',
-    payload: any,
-}
-
-// interface f1( object, Function):object=>{};
 
 export default (
     state: IStore = defaultState, 
-    action: object
+    action: IAction
 ) :IStore => {
-    return state;
+    let newState = JSON.parse(JSON.stringify(state));
+    const fnLib = {
+        add(){
+            newState.list.push( action.value );
+            newState.inputing = '';
+        },
+        remove(){
+            
+        },
+        change(){
+            newState.inputing = action.value;
+        },
+    }
+    fnLib[action.type] && fnLib[action.type]();
+    return newState;
 }
 

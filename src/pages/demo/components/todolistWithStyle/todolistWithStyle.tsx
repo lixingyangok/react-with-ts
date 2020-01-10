@@ -2,6 +2,8 @@ import React from 'react';
 import { Input, List, Button } from 'antd';
 import styled from './style/todolistWithStyle.js';
 import store from 'store/index';
+import { changeConfirmLocale } from 'antd/lib/modal/locale';
+console.log( 'store', store );
 
 const { Search } = Input;
 interface IState {
@@ -24,10 +26,12 @@ export default class ToDoList extends React.Component<any, IState >{
                 <Input/>
                 <Button>提交</Button>
                 <Search
+                    value={state.inputing}
                     placeholder="Input action name"
                     enterButton="Submit"
                     size="large"
-                    onSearch={value => console.log(value)}
+                    onChange={val=>console.log(val.target.value)}
+                    onSearch={value => this.toSearch(value)}
                 />
                 {/* header={<div>Header</div>}
                 footer={<div>Footer</div>} */}
@@ -42,5 +46,19 @@ export default class ToDoList extends React.Component<any, IState >{
                 />
             </styled.InputBar>
         </div>
+    }
+    formChagned( value:string ){
+        store.dispatch({
+            type: 'change',
+            value,
+        });
+        this.setState( store.getState() );
+    }
+    toSearch( newItem:string) {
+        store.dispatch({
+            type: 'add',
+            value: newItem,
+        });
+        this.setState( store.getState() );
     }
 }
