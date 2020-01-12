@@ -2,11 +2,10 @@ import React from 'react';
 import { Input, List, Button } from 'antd';
 import styled from './style/todolistWithStyle.js';
 import store from 'store/index';
-import { changeConfirmLocale } from 'antd/lib/modal/locale';
-console.log( 'store', store );
+console.log( 'import store = ', store );
 
 const { Search } = Input;
-interface IState {
+interface IState { //指定 state 内容
     inputing: string,
     list: string[],
 }
@@ -17,30 +16,30 @@ export default class ToDoList extends React.Component<any, IState >{
     constructor( props:any ){
         super(props);
         this.state = store.getState();
-        console.log( 'store的值---', store.getState() );
+        // ▼监听store变化、必须用箭头函数
+        store.subscribe(  ()=>this.setState( store.getState() ) );
     }
     render(){
-        const { state } = this;
+        const { inputing, list } = this.state;
         return <div>
             <styled.InputBar>
-                <Input/>
-                <Button>提交</Button>
                 <Search
-                    value={state.inputing}
+                    value={ inputing }
                     placeholder="Input action name"
-                    enterButton="Submit"
+                    enterButton="To add"
                     size="large"
-                    onChange={val=>console.log(val.target.value)}
-                    onSearch={value => this.toSearch(value)}
+                    onChange={val=>this.formChagned(val.target.value)}
+                    onSearch={value => this.toAdd(value)}
                 />
                 {/* header={<div>Header</div>}
                 footer={<div>Footer</div>} */}
                 <styled.List
                     bordered
-                    dataSource={ state.list }
+                    dataSource={ list }
                     renderItem={ (item:string) => (
                         <List.Item>
                             {item}
+                            <Button>删除</Button>
                         </List.Item>
                     )}
                 />
@@ -52,13 +51,11 @@ export default class ToDoList extends React.Component<any, IState >{
             type: 'change',
             value,
         });
-        this.setState( store.getState() );
     }
-    toSearch( newItem:string) {
+    toAdd( value:string ) {
         store.dispatch({
             type: 'add',
-            value: newItem,
+            value,
         });
-        this.setState( store.getState() );
     }
 }

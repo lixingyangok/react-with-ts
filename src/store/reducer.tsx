@@ -7,29 +7,31 @@ export interface IStore {
 type tp = 'add' | 'remove' | 'change';
 
 interface IAction {
-    type: 'add' | 'remove' | 'change',
+    type: tp,
     value: any,
     payload?: any,
 }
 
 
 let defaultState:IStore = {
-    inputing: 'inputing',
-    list: [ '123', 'abc', '888' ],
+    inputing: '',
+    list: [
+        'sample',
+    ],
 };
 
 export default (
-    state: IStore = defaultState, 
+    state: IStore = defaultState,
     action: IAction
 ) :IStore => {
-    let newState = JSON.parse(JSON.stringify(state));
+    let newState = JSON.parse( JSON.stringify(state) );
     const fnLib = {
         add(){
             newState.list.push( action.value );
             newState.inputing = '';
         },
         remove(){
-            
+            newState.list.splice( action.value, 0 );
         },
         change(){
             newState.inputing = action.value;
