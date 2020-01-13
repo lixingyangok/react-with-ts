@@ -36,10 +36,12 @@ export default class ToDoList extends React.Component<any, IState >{
                 <styled.List
                     bordered
                     dataSource={ list }
-                    renderItem={ (item:string) => (
+                    renderItem={ (item:string, idx:number) => (
                         <List.Item>
                             {item}
-                            <Button>删除</Button>
+                            <Button type="link" onClick={this.toRemove.bind(this, idx)} >
+                                删除
+                            </Button>
                         </List.Item>
                     )}
                 />
@@ -55,6 +57,12 @@ export default class ToDoList extends React.Component<any, IState >{
     toAdd( value:string ) {
         store.dispatch({
             type: 'add',
+            value,
+        });
+    }
+    toRemove( value:number ){
+        store.dispatch({
+            type: 'remove',
             value,
         });
     }

@@ -24,20 +24,21 @@ export default (
     state: IStore = defaultState,
     action: IAction
 ) :IStore => {
+    const { type, value } = action;
     let newState = JSON.parse( JSON.stringify(state) );
     const fnLib = {
         add(){
-            newState.list.push( action.value );
+            newState.list.push( value );
             newState.inputing = '';
         },
         remove(){
-            newState.list.splice( action.value, 0 );
+            newState.list.splice( value, 1 );
         },
         change(){
-            newState.inputing = action.value;
+            newState.inputing = value;
         },
     }
-    fnLib[action.type] && fnLib[action.type]();
+    fnLib[type] && fnLib[type]();
     return newState;
 }
 
