@@ -1,10 +1,13 @@
+import { tp, ADD } from './actionTypes';
+
+console.log(tp);
 
 export interface IStore {
     inputing: string,
     list: string[],
 }
 // ▼定义有哪些 actions
-type tp = 'add' | 'remove' | 'change';
+// export type tp = 'add' | 'remove' | 'change';
 
 interface IAction {
     type: tp,
@@ -27,7 +30,7 @@ export default (
     const { type, value } = action;
     let newState = JSON.parse( JSON.stringify(state) );
     const fnLib = {
-        add(){
+        [ADD](){
             newState.list.push( value );
             newState.inputing = '';
         },

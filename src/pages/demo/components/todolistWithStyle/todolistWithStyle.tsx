@@ -2,6 +2,8 @@ import React from 'react';
 import { Input, List, Button } from 'antd';
 import styled from './style/todolistWithStyle.js';
 import store from 'store/index';
+
+
 console.log( 'import store = ', store );
 
 const { Search } = Input;
