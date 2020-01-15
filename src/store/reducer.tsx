@@ -1,20 +1,17 @@
-import { tp, ADD } from './actionTypes';
+import { tp, ADD, REMOVE, INPUT } from './actionTypes';
 
-console.log(tp);
 
 export interface IStore {
     inputing: string,
     list: string[],
 }
-// ▼定义有哪些 actions
-// export type tp = 'add' | 'remove' | 'change';
+
 
 interface IAction {
     type: tp,
     value: any,
     payload?: any,
 }
-
 
 let defaultState:IStore = {
     inputing: '',
@@ -23,6 +20,7 @@ let defaultState:IStore = {
     ],
 };
 
+// ▼这里应为:【纯函数】即：一个函数的返回结果只依赖于它的参数，并且在执行过程里面没有副作用
 export default (
     state: IStore = defaultState,
     action: IAction
@@ -34,10 +32,10 @@ export default (
             newState.list.push( value );
             newState.inputing = '';
         },
-        remove(){
+        [REMOVE](){
             newState.list.splice( value, 1 );
         },
-        change(){
+        [INPUT](){
             newState.inputing = value;
         },
     }

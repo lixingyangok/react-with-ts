@@ -2,11 +2,10 @@ import React from 'react';
 import { Input, List, Button } from 'antd';
 import styled from './style/todolistWithStyle.js';
 import store from 'store/index';
-
-
-console.log( 'import store = ', store );
+import { TO_ADD, TO_REMOVE, TO_INPUT } from 'store/actionsMaker';
 
 const { Search } = Input;
+
 interface IState { //指定 state 内容
     inputing: string,
     list: string[],
@@ -30,7 +29,7 @@ export default class ToDoList extends React.Component<any, IState >{
                     placeholder="Input action name"
                     enterButton="To add"
                     size="large"
-                    onChange={val=>this.formChagned(val.target.value)}
+                    onChange={ ev=>this.toInput( ev.target.value)}
                     onSearch={value => this.toAdd(value)}
                 />
                 {/* header={<div>Header</div>}
@@ -50,22 +49,19 @@ export default class ToDoList extends React.Component<any, IState >{
             </styled.InputBar>
         </div>
     }
-    formChagned( value:string ){
-        store.dispatch({
-            type: 'change',
-            value,
-        });
+    toInput( value:string ){
+        store.dispatch(
+            TO_INPUT(value),
+        );
     }
     toAdd( value:string ) {
-        store.dispatch({
-            type: 'add',
-            value,
-        });
+        store.dispatch(
+            TO_ADD(value),
+        );
     }
     toRemove( value:number ){
-        store.dispatch({
-            type: 'remove',
-            value,
-        });
+        store.dispatch(
+            TO_REMOVE(value),
+        );
     }
 }
