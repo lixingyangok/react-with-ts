@@ -1,15 +1,19 @@
-import React, {Suspense} from 'react';
+import React, { Suspense } from 'react';
 import { NavLink, Switch, Route, Redirect } from 'react-router-dom';
 import { Ul } from './style/demo';
 
 export const navData = [{
     to: '/demo/toDoList',
-    name: 'To do list',
+    name: 'ToDoList',
     component: React.lazy(()=>import('pages/demo/components/todolist/todolist')),
 },{
-    to: '/demo/toDoListWithStyle',
-    name: 'To do list with style',
-    component: React.lazy(()=>import('pages/demo/components/todolistWithStyle/todolistWithStyle')),
+    to: '/demo/toDoListWithStore',
+    name: 'ToDoList with store',
+    component: React.lazy(()=>import('pages/demo/components/todolistWithStore/todolistWithStore')),
+},{
+    to: '/demo/toDoListSeparation',
+    name: 'ToDoList toDoListSeparation',
+    component: React.lazy(()=>import('pages/demo/components/todolistSeparation/todolistSeparation')),
 },{
     to: '/demo/chessGame',
     name: 'Chess game',

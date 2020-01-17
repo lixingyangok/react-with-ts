@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input, List, Button } from 'antd';
-import styled from './style/todolistWithStyle.js';
+import styled from './style/todolistWithStore.js';
 import store from 'store/index';
 import { TO_ADD, TO_REMOVE, TO_INPUT } from 'store/actionsMaker';
 
