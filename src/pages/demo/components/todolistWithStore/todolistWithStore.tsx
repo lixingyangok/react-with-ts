@@ -23,6 +23,9 @@ export default class ToDoList extends React.Component<any, IState >{
     render(){
         const { inputing, list } = this.state;
         return <div>
+            <h1>
+                This todolist built with store(redux).
+            </h1>
             <styled.InputBar>
                 <Search
                     value={ inputing }
@@ -41,7 +44,7 @@ export default class ToDoList extends React.Component<any, IState >{
                         <List.Item>
                             {item}
                             <Button type="link" onClick={this.toRemove.bind(this, idx)} >
-                                删除
+                                Delete
                             </Button>
                         </List.Item>
                     )}

@@ -26,12 +26,15 @@ export default class Todolist extends React.Component<IProps, IState>{
     render(){
         let { state: { list, msg } } = this;
         return <div className="todolist" >
+            <h1>
+                This is a simple todolist.
+            </h1>
             <div className="input-box" >
                 <input className="input" placeholder="Please type in"
                     name="typing" value={this.state.typing}
                     onChange={ ev=>this.formChanged( ev ) }
                 />
-                <button onClick={ ()=>this.add() }>
+                <button onClick={ ()=>this.add() }  >
                     Submit
                 </button>
             </div>
@@ -40,8 +43,10 @@ export default class Todolist extends React.Component<IProps, IState>{
                 {list.map((cur:string, idx:number):Object =>{
                     return <li key={idx}>
                         <span>{cur}</span>
-                        &nbsp;
-                        <button onClick={()=>this.del( idx )} >Delete</button>
+                        &nbsp;&nbsp;
+                        <button onClick={()=>this.del( idx )} style={{padding: '3px 6px', lineHeight: '10px' }}>
+                            Delete
+                        </button>
                     </li>
                 })}
             </ol>
