@@ -3,7 +3,7 @@ import cpnt from './style/style.js';
 
 interface IProps {
     list: string[],
-    fnInputing:Funcion,
+    fnInputing:Function,
     fnDel:Function,
 }
 
