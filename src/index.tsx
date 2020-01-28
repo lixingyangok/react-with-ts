@@ -61,7 +61,7 @@ const rootReducer = combineReducers({
 // ▼ Make a store buy this way
 let store = createStore(
     rootReducer,
-    applyMiddleware( thunk )
+    applyMiddleware( thunk ), // 这样写，或▼
     // compose(
     //     applyMiddleware( thunk ), //需要使用的中间件数组
     //     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
