@@ -1,6 +1,6 @@
 import React from 'react';
 import Interface from './interface';
-import store from 'store';
+import store from 'store/store';
 import { TO_INPUT, TO_REMOVE, TO_ADD } from 'store/actionsMaker';
 
 

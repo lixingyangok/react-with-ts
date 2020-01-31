@@ -1,8 +1,12 @@
 import React from 'react';
 import { Input, List, Button } from 'antd';
 import styled from './style/todolistWithStore.js';
-import store from 'store/index';
-import { TO_ADD, TO_REMOVE, TO_INPUT } from 'store/actionsMaker';
+import store from 'store/store';
+import { 
+    TO_ADD,
+    TO_INPUT,
+    TO_REMOVE,
+} from 'store/actionsMaker';
 
 const { Search } = Input;
 
