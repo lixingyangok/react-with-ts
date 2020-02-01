@@ -26,6 +26,10 @@ export const navData = [{
     to: '/demo/slider',
     name: 'Slider',
     component: React.lazy(()=>import('pages/demo/components/slider/slider')),
+},{
+    to: '/demo/banner',
+    name: 'Banner',
+    component: React.lazy(()=>import('pages/demo/components/banner/banner')),
 },];
 
 export default class Demo extends React.Component{
