@@ -16,7 +16,7 @@ export default class Clock extends React.Component<IProps, IState>{
     private timerID:any;
     state:IState;
     constructor(props:IProps) {
-        console.log('■■ 挂载开始 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■');
+        console.log('■■ ▼挂载开始 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■');
         console.log('01-constructor（挂载调用');
         super(props);
         this.timerID = 0;
@@ -31,10 +31,12 @@ export default class Clock extends React.Component<IProps, IState>{
     // componentWillUpdate
     // componentWillReceiveProps
     static getDerivedStateFromProps(props:IProps, state:IState){
-        console.log( '02-A-getDerivedStateFromProps（双重调用'); // console.log(props, state );
+        console.log( '%c02-A-getDerivedStateFromProps（双重调用【开始更新】', 'background:yellow');
+        // console.log(props, state );
+        // 这是一个【数一数二】的方法，更新时第1执行，挂载时第2执行
         // 一般情况在通过判断 props 的值，来修改state （或者返回null，表示不做修改
         return {
-            note: state.date.getMilliseconds() % 2 == 0 ? '偶数' : '奇数',
+            note: state.date.getMilliseconds() % 2 === 0 ? '偶数' : '奇数',
         }
     }
     shouldComponentUpdate(){
@@ -56,26 +58,27 @@ export default class Clock extends React.Component<IProps, IState>{
                     {state.date.getMilliseconds()}
                     ({state.note})
                     <br/>
-                    {state.seconds}
+                    Two clicks separated by
+                    <span style={{color: 'blue'}} >&nbsp;{state.seconds}&nbsp;</span>
+                    seconds.
                 </H1>
             </div>
         </div>
     }
+
     getSnapshotBeforeUpdate(prevProps:IProps, prevState:IState) { // prevProps, prevState
         console.log('D-getSnapshotBeforeUpdate（更新调用');
-        console.log('■■ 更新完成 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■');
-        const HowManyCecondsPast = (this.state.date.getTime() - prevState.date.getTime()) / 1000;
-        return {
-            seconds: HowManyCecondsPast,
-        }
-        return null;
+        // 返回一个值，提供给：componentDidUpdate
+        return null; 
     }
-    componentDidUpdate(){
-        // console.log('componentDidUpdate')
+    componentDidUpdate(prevProps:IProps, prevState:IState, snapshot:any ){
+        console.log('E-componentDidUpdate（更新调用')
+        // console.log( snapshot );
+        console.log('== ▲更新完成 ============================');
     }
     componentDidMount() {
         console.log('04-componentDidMount（挂载调用');
-        console.log('■■ 挂载完成 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■');
+        console.log('■■ ▲挂载完成 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■');
         // ▼组件挂载完成之后，启动定时器
         // this.timerID = setInterval(()=>{
         //     this.setState({
@@ -90,8 +93,12 @@ export default class Clock extends React.Component<IProps, IState>{
         // clearInterval(this.timerID);
     }
     getTime(){
+        console.log('刷新时间');
+        const now = new Date();
+        const seconds = (now.getTime() - this.state.date.getTime() ) / 1000;
         this.setState({
-            date: new Date(),
+            seconds,
+            date: now,
         });
     }
 }
