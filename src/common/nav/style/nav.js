@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import style from 'pages/demo/components/todolistSeparation/style/style';
 
 export default{
     nav: styled.nav`
@@ -8,13 +7,16 @@ export default{
     ul: styled.ul`
         display: flex;
         justify-content: center;
-        padding: 10px 30px;
+        padding: 18px 30px;
     `,
     li: styled.li`
         list-style: none;
-        margin: 0 20px;
+        margin: 0 10px;
         a{
             color: white;
+            font-size: 16px;
+            padding: 0.1em 0.5em;
+            font-weight: bold;
             &[class~=active]{
                 color: yellow;
             }

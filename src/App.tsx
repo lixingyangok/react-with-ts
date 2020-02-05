@@ -1,15 +1,18 @@
 import React, { Suspense }  from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-// BrowserRouter, Router, HashRouter, Match, Route, Link, hashHistory, NavLink, 
-// 
-import './App.css';
 import Nav, { navData } from 'common/nav/nav';
+// Router, HashRouter, Match, Route, Link, hashHistory, NavLink, 
+// import styled from 'styled-components';
 
+
+// const TextCenter = styled.div`
+//     text-align: center;
+// `;
 const App: React.FC = () => {
     return (
         // ▼应用根组件必须要有 <BrowserRouter>
         <BrowserRouter >
-            <div className="App">
+            <div className="App" style={{textAlign: 'center'}} >
                 <Nav/>
                 {/* ▼异步组件父级必须有 Suspense */}
                 <Suspense fallback={<div>Loading...</div>}>

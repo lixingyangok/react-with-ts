@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './style/nav.scss';
+import cpnt from './style/nav';
 
 export const navData = [
     {
@@ -9,8 +9,12 @@ export const navData = [
         component: React.lazy(()=>import('pages/home/home')),
     }, {
         to: '/demo',
-        name: 'Demo',
+        name: 'Practice demo',
         component: React.lazy(()=>import('pages/demo/demo')),
+    }, {
+        to: '/hook',
+        name: 'Learn Hook',
+        component: React.lazy(()=>import('pages/hook/hook')),
     }, {
         to: '/about',
         name: 'About',
@@ -19,15 +23,15 @@ export const navData = [
 ]
 
 export default function(){
-    return <nav>
-        <ul>
+    return <cpnt.nav>
+        <cpnt.ul>
             {
                 navData.map((cur, idx)=>{
-                    return <li key={idx}>
+                    return <cpnt.li key={idx}>
                         <NavLink to={cur.to}>{cur.name}</NavLink>
-                    </li>
+                    </cpnt.li>
                 })
             }
-        </ul>
-    </nav>;
+        </cpnt.ul>
+    </cpnt.nav>;
 }
