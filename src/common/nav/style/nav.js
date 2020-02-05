@@ -1,11 +1,16 @@
-nav{
-    background: black;
-    ul{
+import styled from 'styled-components';
+import style from 'pages/demo/components/todolistSeparation/style/style';
+
+export default{
+    nav: styled.nav`
+        background: black;
+    `,
+    ul: styled.ul`
         display: flex;
         justify-content: center;
         padding: 10px 30px;
-    }
-    li{
+    `,
+    li: styled.li`
         list-style: none;
         margin: 0 20px;
         a{
@@ -14,6 +19,5 @@ nav{
                 color: yellow;
             }
         }
-
-    }
+    `,
 }
