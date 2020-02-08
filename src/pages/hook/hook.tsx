@@ -17,7 +17,12 @@ export const navData:Array<oneLink> = [{
     to: '/hook/useEffect',
     name: 'useEffect',
     component: React.lazy(()=>import('pages/hook/children/useEffect/useEffect')),
-},];
+},{
+    to: '/hook/useRef',
+    name: 'useRef',
+    component: React.lazy(()=>import('pages/hook/children/useRef/useRef')),
+},
+];
 
 export default function(){
     return <div>

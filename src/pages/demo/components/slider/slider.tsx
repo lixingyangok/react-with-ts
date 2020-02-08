@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './style/slider.js';
 
-const { Div } = styles;
-
 interface IProps {
 
 }
@@ -18,6 +16,7 @@ interface IState {
 
 export default class Slider extends React.Component<IProps, IState>{
     public state: IState;
+    public myRef: any;
     constructor( props:IProps ){
         super(props);
         this.state = {
@@ -28,6 +27,7 @@ export default class Slider extends React.Component<IProps, IState>{
             iTimer: 0,
             iCur: 0,
         };
+        this.myRef = React.createRef();
     }
     render(){
         const { state } = this;
@@ -36,7 +36,7 @@ export default class Slider extends React.Component<IProps, IState>{
                 This is is slider
                 { state.iLiWidth }
             </h1>
-            <Div ref="div" >
+            <styles.Div ref={ this.myRef } >
                 {Array(2).fill(1).map((cur_, idx_:number)=>{
                     return <ul key={idx_} style={{left: `${state.iLeft}px`}} >
                         {Array(4).fill(1).map((cur:number, idx:number)=>{
@@ -46,7 +46,7 @@ export default class Slider extends React.Component<IProps, IState>{
                         })}
                     </ul>
                 })}
-            </Div>
+            </styles.Div>
             <div>
                 <button onClick={()=>this.LetItGo(1)} > Go left </button>
                 <button onClick={()=>this.LetItGo(-1)} > Go right </button>
@@ -91,7 +91,7 @@ export default class Slider extends React.Component<IProps, IState>{
         this.setState({ iTimer: timer });
     }
     componentDidMount(){
-        const oDiv:any = this.refs.div;
+        const oDiv:any = this.myRef.current;
         const oUl:HTMLElement = oDiv.querySelector('ul');
         const oLi:HTMLElement = oDiv.querySelector('li');
         const iWidth:number = oLi.offsetWidth;

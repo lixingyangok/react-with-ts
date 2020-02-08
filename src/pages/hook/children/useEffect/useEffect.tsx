@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom';
 
 
 function Hello(){
-    return <span id="Hello" >Hello world</span>
+    return <span id="Hello" >
+        Hello world
+    </span>
 }
 
 
 export default function(){
-    
     const [number, setNumber] = React.useState(1);
     // ▼useEffect在组件挂载，更新后会调用。相当于 componentDidMount & componentDidUpdate
     React.useEffect(
@@ -16,8 +17,8 @@ export default function(){
         // 在return 之后执行
         ()=>{
             let theTimer = setInterval(()=>{
-                // setNumber(number+1); //打印的永远是初始值
-                // setNumber( ()=>number+1); //打印的永远是初始值
+                // setNumber(number+1); //修改无效，
+                // setNumber( ()=>number+1); //修改无效，
                 // console.log(`number: `, number ); //打印的永远是初始值
                 setNumber(number=>number+1);
             }, 1*1000);
@@ -40,7 +41,7 @@ export default function(){
         ReactDOM.unmountComponentAtNode( helloDom );
     }
     return <div id="userEffect" >
-        <h2>Learn Effect by this demo.</h2>
+        <h2>Learn useEffect by this demo.</h2>
         <div>
             <div>
                 数字：{number} <br/>

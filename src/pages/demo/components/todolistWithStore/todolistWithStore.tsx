@@ -8,13 +8,10 @@ import {
     TO_REMOVE,
 } from 'store/actionsMaker';
 
-const { Search } = Input;
-
 interface IState { //指定 state 内容
     inputing: string,
     list: string[],
 }
-
 
 export default class ToDoList extends React.Component<any, IState >{
     public state:IState;
@@ -31,7 +28,7 @@ export default class ToDoList extends React.Component<any, IState >{
                 This todolist built with store(redux).
             </h1>
             <styled.InputBar>
-                <Search
+                <Input.Search
                     value={ inputing }
                     placeholder="Input action name"
                     enterButton="To add"
@@ -44,10 +41,10 @@ export default class ToDoList extends React.Component<any, IState >{
                 <styled.List
                     bordered
                     dataSource={ list }
-                    renderItem={ (item:string, idx:number) => (
+                    renderItem={ (item:any, idx:number):React.ReactNode => (
                         <List.Item>
                             {item}
-                            <Button type="link" onClick={this.toRemove.bind(this, idx)} >
+                            <Button type="link" onClick={()=>this.toRemove.bind(this, idx)} >
                                 Delete
                             </Button>
                         </List.Item>
