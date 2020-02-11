@@ -7,11 +7,13 @@ const MyContext = React.createContext('');
 
 function Banner01(){
     const oneContext = React.useContext(MyContext);
-    console.log( '收到context值：', oneContext );
+    // console.log( '收到context值：', oneContext );
     return <cpnt.H1>
         All teachers welcome：
-        {/* 以下是两种调用方式 */}
-        <span>{oneContext}</span>，
+        {/* 以下是两种调用context值的方式 */}
+        <span>{oneContext}</span>， 
+        {/* ▲顶部声明，然后直接调用， ▼添加一个 <MyContext.Consumer> 外套 */}
+        {/* 感觉第一种好一些 */}
         <span>
             <MyContext.Consumer>
                 { myVal =>  myVal }
