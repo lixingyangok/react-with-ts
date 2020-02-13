@@ -22,9 +22,9 @@ export const navData:Array<oneLink> = [{
     name: 'useRef',
     component: React.lazy(()=>import('pages/hook/children/useRef/useRef')),
 },{
-    to: '/hook/createContext',
-    name: 'createContext',
-    component: React.lazy(()=>import('pages/hook/children/createContext/createContext')),
+    to: '/hook/useContext',
+    name: 'useContext',
+    component: React.lazy(()=>import('pages/hook/children/useContext/useContext')),
 },
 ];
 
