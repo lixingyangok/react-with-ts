@@ -3,8 +3,6 @@ import cpnt from './style/useContext.js';
 
 const MyContext = React.createContext('');
 
-
-
 function Banner01(){
     const oneContext = React.useContext(MyContext);
     // console.log( '收到context值：', oneContext );

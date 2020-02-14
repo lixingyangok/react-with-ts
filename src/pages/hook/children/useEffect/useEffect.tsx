@@ -23,11 +23,13 @@ export default function Counter (){
             }, 1*1000);
 
             return ()=>{ // 返回的函数用于在 componentWillUnmount 时执行
+                // 如果2参为空，此函数会在每次 number 发生变化后执行。
+                // 大概是先卸载，再用 number 的新值重新挂载组件
                 clearInterval(Number(theTimer));
                 console.log('组件卸载了');
             };
         },
-        // ▼2参可为空，在【挂载或更新（即state更新）】后就执行1参的方法，连1参返回的方法也执行
+        // ▼2参为空那么：在【挂载或更新（即state更新）】后就执行1参的方法，连1参返回的方法也执行!!!
         // ▼2参为空数组，相当于 componentDidMount，仅仅在【挂载后】执行一次，在卸载时执行1参返回的方法
         // ▼一般数组，当【监听到数组内值发生变化后】，执行1参的方法
         [],
