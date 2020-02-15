@@ -25,6 +25,10 @@ export const navData:Array<oneLink> = [{
     to: '/hook/useContext',
     name: 'useContext',
     component: React.lazy(()=>import('pages/hook/children/useContext/useContext')),
+},{
+    to: '/hook/useReducer',
+    name: 'useReducer',
+    component: React.lazy(()=>import('pages/hook/children/useReducer/useReducer')),
 },
 ];
 
