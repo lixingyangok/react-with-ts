@@ -53,6 +53,7 @@ export default function(){
             Type in to change the content value:&nbsp;&nbsp;&nbsp;
             <input type='text' value={name} onChange={ev=>setName(ev.target.value)} />
         </div>
+        {/* MyContext 这样一个 context 声明完成之后，要通过以下的 MyContext.Provider 向子级下发共享的值 */}
         <MyContext.Provider value={name}>
             <JustOneBox>
                 <Banner01></Banner01>
