@@ -7,22 +7,28 @@ interface IProps{
     val02?: string,
 }
 function Kid ({val01}:IProps) {
+    function getNewVal01 (val01:string) {
+        console.log('子组件开始求值');
+        return 'new value: ' + val01;
+    };
+    // const newVal01 = getNewVal01();
+    // ▲如果使用useMemo，则父组件一旦变化，则当前组件刷新
+    // ▼使用useMemo，则我监听的目标值变化才刷新当前组件
+    const newVal01 = React.useMemo(
+        ()=>getNewVal01(val01), //1参为求值函数
+        [val01], //2参为监听对象
+    );
     const Div = styled.div`
         border: solid 1px #aaa;
         padding: 10px 30px;
         margin: 35px auto 0;
     `;
-    function getNewVal01 () {
-        console.log('子组件开始求值');
-        return 'new value: ' + val01;
-    };
-    const newVal01 = React.useMemo(()=>getNewVal01(), [val01]);
-    return <Div>
-        {newVal01}
-    </Div>
+    return <Div> {newVal01} </Div>
 }
 
 export default function () {
+    const [val01, setVal01] = React.useState('value01');
+    const [val02, setVal02] = React.useState('value02');
     const Span = styled.span`
         display: inline-block;
         font-size: 18px;
@@ -30,8 +36,6 @@ export default function () {
         border: solid 1px #aaa;
         padding: 0.3em 1em;
     `;
-    const [val01, setVal01] = React.useState('value01');
-    const [val02, setVal02] = React.useState('value02');
     return <div className="center-box" >
         <h2>Learn useMemo by this demo.</h2>
         <div>

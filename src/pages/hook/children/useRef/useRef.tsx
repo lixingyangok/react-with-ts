@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export default function(){
     const [time, setTime] = React.useState(new Date());
+    const [text, setText] = React.useState('value');
     const Time = `
         ${time.toLocaleString()} ${time.getMilliseconds()}
     `.trim();
@@ -16,9 +17,14 @@ export default function(){
     `;
     const myRef:any = React.useRef(null);
     const myIpt:any = React.useRef(null);
-    React.useEffect(
-        ()=>console.log('组件变化'),
-    );
+    const myIpt02:any = React.useRef(null);
+    // React.useEffect(
+    //     ()=>{
+    //         myIpt02.current.value = text;
+    //         console.log('组件变化');
+    //     },
+    //     [time]
+    // );
     const UpdateTime = function(){
         setTime(new Date());
         myRef.current.innerText = Time;
@@ -29,6 +35,7 @@ export default function(){
     return <div>
         <h2>Learn useRef by this demo.</h2>
         <Input ref={myIpt} value={Time} readOnly />
+        <Input ref={myIpt02} value={text} onChange={(ev:any)=>setText(ev.target.value)} />
         <p ref={myRef}>&nbsp;&nbsp;</p>
         <br/>
         <button onClick={()=>UpdateTime()} >
