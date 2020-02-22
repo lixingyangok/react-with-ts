@@ -33,6 +33,10 @@ export const navData:Array<oneLink> = [{
     to: '/hook/useMemo',
     name: 'useMemo',
     component: React.lazy(()=>import('pages/hook/children/useMemo/useMemo')),
+},{
+    to: '/hook/useCallback',
+    name: 'useCallback',
+    component: React.lazy(()=>import('pages/hook/children/useCallback/useCallback')),
 },
 ];
 

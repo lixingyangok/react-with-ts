@@ -12,8 +12,8 @@ function Kid ({val01}:IProps) {
         return 'new value: ' + val01;
     };
     // const newVal01 = getNewVal01();
-    // ▲如果使用useMemo，则父组件一旦变化，则当前组件刷新
-    // ▼使用useMemo，则我监听的目标值变化才刷新当前组件
+    // ▲如果不使用useMemo，父组件【任意值】发生变化，当前组件就会刷新（当前组件不需要的值变化了，当前组件也刷新
+    // ▼使用useMemo，则我监听的【目标值】变化才刷新当前组件
     const newVal01 = React.useMemo(
         ()=>getNewVal01(val01), //1参为求值函数
         [val01], //2参为监听对象
