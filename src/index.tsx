@@ -7,9 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import myStore from 'store/store';
 
-
 //
-// import './index.css';
 import 'antd/dist/antd.css';
 import 'assets/style/global.scss';
 
