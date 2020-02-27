@@ -30,7 +30,11 @@ export const navData = [{
     to: '/demo/banner',
     name: 'Banner',
     component: React.lazy(()=>import('pages/demo/components/banner/banner')),
-},];
+},{
+    to: '/demo/personCard',
+    name: 'personCard',
+    component: React.lazy(()=>import('pages/demo/components/personCard/personCard')),
+}];
 
 export default class Demo extends React.Component{
     render(){
@@ -42,18 +46,19 @@ export default class Demo extends React.Component{
                     </li>
                 })}
             </Ul>
-            {/*    */}
+            {/*  分界  */}
             <Suspense fallback={<div>Loading...</div>}>
                 <Switch>
                     <Redirect exact from="/demo" to="/demo/toDoList" />
-                    {navData.map((cur:{to:string, name:string, component:any}, idx:number)=>{
-                        return (
-                            <Route
-                                path={cur.to}
-                                component={cur.component}
-                                key={idx}
-                            />
-                        );
+                    {navData.map(
+                        (cur:{to:string, name:string, component:any},
+                        idx:number,
+                    )=>{
+                        return <Route
+                            path={cur.to}
+                            component={cur.component}
+                            key={idx}
+                        />;
                     })}
                 </Switch>
             </Suspense>
