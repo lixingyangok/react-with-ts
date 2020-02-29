@@ -12,6 +12,10 @@ export const navData = [
         name: 'Practice demo',
         component: React.lazy(()=>import('pages/demo/demo')),
     }, {
+        to: '/demo-2',
+        name: 'Practice demo-2',
+        component: React.lazy(()=>import('pages/demo-2/demo-2')),
+    }, {
         to: '/hook',
         name: 'Learn Hook',
         component: React.lazy(()=>import('pages/hook/hook')),

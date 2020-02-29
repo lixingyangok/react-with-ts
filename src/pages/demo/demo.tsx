@@ -7,13 +7,13 @@ export const navData = [{
     name: 'ToDoList',
     component: React.lazy(()=>import('pages/demo/components/todolist/todolist')),
 },{
-    to: '/demo/toDoListWithStore',
-    name: 'ToDoList with store',
-    component: React.lazy(()=>import('pages/demo/components/todolistWithStore/todolistWithStore')),
-},{
     to: '/demo/toDoListSeparation',
     name: 'ToDoList Separation',
     component: React.lazy(()=>import('pages/demo/components/todolistSeparation/todolistSeparation')),
+},{
+    to: '/demo/toDoListWithStore',
+    name: 'ToDoList with store',
+    component: React.lazy(()=>import('pages/demo/components/todolistWithStore/todolistWithStore')),
 },{
     to: '/demo/chessGame',
     name: 'Chess game',
