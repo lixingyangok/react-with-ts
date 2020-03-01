@@ -1,13 +1,8 @@
 import React, { Suspense }  from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+// ▼Router, HashRouter, Match, Route, Link, hashHistory, NavLink, 
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'; 
 import Nav, { navData } from 'common/nav/nav';
-// Router, HashRouter, Match, Route, Link, hashHistory, NavLink, 
-// import styled from 'styled-components';
 
-
-// const TextCenter = styled.div`
-//     text-align: center;
-// `;
 const App: React.FC = () => {
     return (
         // ▼应用根组件必须要有 <BrowserRouter>
