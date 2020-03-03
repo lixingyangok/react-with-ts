@@ -37,6 +37,10 @@ export const navData:Array<oneLink> = [{
     to: '/hook/useCallback',
     name: 'useCallback',
     component: React.lazy(()=>import('pages/hook/children/useCallback/useCallback')),
+},{
+    to: '/hook/todolist',
+    name: 'todolist',
+    component: React.lazy(()=>import('pages/hook/children/todolist/todolist')),
 },
 ];
 
