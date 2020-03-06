@@ -3,8 +3,8 @@ import { Menu } from 'antd';
 
 export default function Abc (){
     const [current, setCurrent] = React.useState('mail');
-    const handleClick = ()=>{
-        console.log('handleClick', setCurrent);
+    const handleClick = ( ev:any )=>{
+        setCurrent(ev.key);
     }
     return <div className="center-box">
         <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal" theme="dark">

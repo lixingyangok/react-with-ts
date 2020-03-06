@@ -25,15 +25,18 @@ function TypeIn(
 }
 
 function TheList(
-    props:{ list: Array<any> },
+    props:{ list: Array<any>, toDel:Function },
 ){
-    const { list } = props;
+    const { list, toDel } = props;
+
     return <List bordered
         dataSource={list}
-        renderItem={item => (
+        renderItem={(item,idx) => (
             <List.Item>
                 <cpnt.ItemLeft>{item}</cpnt.ItemLeft>
-                <Button size="small">删除</Button>
+                <Button size="small" onClick={()=>toDel(idx)} >
+                    删除
+                </Button>
             </List.Item>
         )}
     />
@@ -44,10 +47,16 @@ export default function(){
     const addItem = function( newVal:string ){
         setList([ ...list, newVal ]);
     }
-    return <cpnt.Div className="center-box" >
-        <TypeIn addItem={addItem} />
-        <TheList list={list}/>
-    </cpnt.Div>
+    const toDel = function ( idx:number ){
+        setList(list.filter((cur,listIdx)=>listIdx !== idx));
+    }
+    return <div>
+        <h2>Write a todolist by hook.</h2>
+        <cpnt.Div className="center-box" >
+            <TypeIn addItem={addItem} />
+            <TheList list={list} toDel={toDel}/>
+        </cpnt.Div>
+    </div>
 }
 
 
