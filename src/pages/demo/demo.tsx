@@ -50,8 +50,8 @@ export default class Demo extends React.Component{
             <Suspense fallback={<div>Loading...</div>}>
                 <Switch>
                     <Redirect exact from="/demo" to="/demo/toDoList" />
-                    {navData.map(
-                        (cur:{to:string, name:string, component:any},
+                    {navData.map((
+                        cur:{to:string, name:string, component:any},
                         idx:number,
                     )=>{
                         return <Route
