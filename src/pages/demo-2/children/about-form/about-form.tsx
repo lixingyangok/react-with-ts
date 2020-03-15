@@ -6,6 +6,7 @@ export default function(){
         name: 'Tom',
         sex: 0,
         hobbies: '',
+        marriage: 1,
     });
     const toChangeVal = function(ev:any ){
         setForm({
@@ -16,33 +17,44 @@ export default function(){
     const toChangeCheckBox = function (ev:any) {
         const {target} = ev;
         console.log(target.checked);
-
+    }
+    const showForm = function(){
+        console.log( 1 );
     }
     return <div >
         <cpnt.Form>
             <div>
                 name：
-                <input value={form.name} type="text" onChange={toChangeVal} />
+                <input value={form.name} type="text" name="name" onChange={toChangeVal} />
             </div>
             <div>
                 gender：
                 <label>
-                    male <input value={0} defaultChecked={form.sex==0} name="sex" type="radio"  onChange={toChangeVal} />
+                    male <input value={0} defaultChecked={form.sex===0} name="sex" type="radio"  onChange={toChangeVal} />
                 </label>
                 <label>
-                    female <input value={1} defaultChecked={form.sex==1} name="sex" type="radio"  onChange={toChangeVal} />
+                    female <input value={1} defaultChecked={form.sex===1} name="sex" type="radio"  onChange={toChangeVal} />
                 </label>
+            </div>
+            <div>
+                marriage:
+                <select name="marriage" onChange={toChangeVal}>
+                    <option value={1} defaultChecked={form.marriage===1}>marriaged</option>
+                    <option value={0} defaultChecked={form.marriage===0}>single</option>
+                </select>
             </div>
             <div>
                 hobbies:
                 <label>
-                    reading <input value={11} defaultChecked={form.sex==11} name="hobbies" type="checkbox"  onChange={toChangeCheckBox} />
+                    reading <input value={11} defaultChecked={form.sex===11} name="hobbies" type="checkbox"  onChange={toChangeCheckBox} />
                 </label>
                 <label>
-                    exercising <input value={22} defaultChecked={form.sex==22} name="hobbies" type="checkbox"  onChange={toChangeCheckBox} />
+                    exercising <input value={22} defaultChecked={form.sex===22} name="hobbies" type="checkbox"  onChange={toChangeCheckBox} />
                 </label>
             </div>
-
+            <div>
+                <button type="button" onClick={showForm} >打印表单</button>
+            </div>
         </cpnt.Form>
     </div>
 }
