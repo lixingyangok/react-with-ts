@@ -30,13 +30,15 @@ export default class Clock extends React.Component<IProps, IState>{
     // componentWillMount
     // componentWillUpdate
     // componentWillReceiveProps
-    static getDerivedStateFromProps(props:IProps, state:IState){
-        console.log( '%c02-A-getDerivedStateFromProps（双重调用【开始更新】', 'background:yellow');
-        // console.log(props, state );
-        // 这是一个【数一数二】的方法，更新时第1执行，挂载时第2执行
-        // 一般情况在通过判断 props 的值，来修改state （或者返回null，表示不做修改
+    static getDerivedStateFromProps(nextProps:IProps, prevState:IState){
+        const sMsg = '%c02-A-getDerivedStateFromProps（双重调用【开始更新】';
+        const sStyle = 'background:yellow';
+        console.log(sMsg, sStyle);
+        // console.log(nextProps, prevState);
+        // 这是一个【数一数二】的方法，更新时第1次执行，挂载时第2次执行
+        // 一般情况在通过判断 nextProps 的值，来修改prevState （或者返回null，表示不做修改
         return {
-            note: state.date.getMilliseconds() % 2 === 0 ? '偶数' : '奇数',
+            note: prevState.date.getMilliseconds() % 2 === 0 ? '偶数' : '奇数',
         }
     }
     shouldComponentUpdate(){
